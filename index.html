@@ -72,6 +72,95 @@
      }
    }
    </style>
+   <style>
+   /* Sembunyikan ikon tertentu di mobile */
+   @media (max-width: 768px) {
+       #info-btn,  /* headset */
+       #search-btn, /* envelope */
+       #login-btn { /* phone */
+           display: none !important;
+       }
+       
+       /* Sesuaikan layout header untuk mobile */
+       .header .icons {
+           gap: 8px !important;
+       }
+   }
+
+   /* Pastikan tetap muncul di desktop */
+   @media (min-width: 769px) {
+       #info-btn,
+       #search-btn,
+       #login-btn {
+           display: block !important;
+       }
+   }
+   </style>
+   <style>
+   /* Header utama */
+   .header {
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       padding: 1.5rem 5%;
+       background: #fff;
+       box-shadow: var(--box-shadow);
+       position: fixed;
+       top: 0;
+       left: 0;
+       right: 0;
+       z-index: 1000;
+   }
+
+   /* Container ikon */
+   .icons {
+       display: flex;
+       gap: 1.5rem; /* Jarak antar ikon */
+       align-items: center;
+   }
+
+   /* Style dasar semua ikon */
+   .icons > div {
+       font-size: 1.7rem;
+       cursor: pointer;
+       color: var(--black);
+       transition: transform 0.2s;
+   }
+
+   .icons > div:hover {
+       color: var(--main-color);
+       transform: scale(1.1);
+   }
+
+   /* Responsive untuk mobile */
+   @media (max-width: 768px) {
+       /* Sembunyikan ikon tertentu di mobile */
+       #search-btn,  /* envelope */
+       #login-btn {  /* phone */
+           display: none !important;
+       }
+       
+       /* Sesuaikan layout header untuk mobile */
+       .header {
+           padding: 1rem 2rem;
+           flex-wrap: wrap;
+       }
+       
+       .icons {
+           gap: 1rem;
+       }
+       
+       /* Perbesar ikon menu di mobile */
+       #menu-btn {
+           font-size: 2rem;
+       }
+       
+       /* Style khusus headset di mobile */
+       #info-btn {
+           font-size: 1.8rem !important;
+       }
+   }
+   </style>
 </head>
 
 <body>
@@ -95,12 +184,11 @@
   </nav>
 
   <div class="icons">
-    <div id="menu-btn" class="fas fa-bars"></div>
-    <div id="info-btn" class="fas fa-headset" title="Klik untuk Melihat Info Kontak"></div>
-    <div id="search-btn" class="fas fa-envelope" title="klik untuk Menghubungi via email"></div>
-    <div id="login-btn" class="fas fa-phone" title="Klik untuk Menelpon"></div>
+    <div id="menu-btn"class="fas fa-bars"></div>
+    <div id="info-btn"class="fas fa-headset" title="Klik untuk Melihat Info Kontak"></div>
+    <div id="search-btn"class="fas fa-envelope" title="klik untuk Menghubungi via email"></div>
+    <div id="login-btn"class="fas fa-phone" title="Klik untuk Menelpon"></div>
   </div>
-
   <form action="" class="search-form">
     <input type="search" name="" placeholder="cari di sini..." id="search-box">
     <label for="search-box" class="fas fa-instagram"></label>
@@ -164,7 +252,7 @@
                </div>
             </section>
 
-            <section class="swiper-slide slide" style="background: url(fotomodifikasi/modifikasi.jpg) no-repeat;">
+            <section class="swiper-slide slide" style="background: url(images/rencana.jpg) no-repeat;">
                <div class="content">
                   <h3>Dari Perencanaan hingga Realisasi</h3>
                   <p>Kami mendampingi setiap proses, mulai dari konsultasi, desain, hingga pemasangan gondola yang inovatif dan efisien.</p>
@@ -837,7 +925,7 @@
          playPauseBtn.textContent = '▶️';
       };
 
-      // Kirim form ke email dan WhatsApp
+      // Kirim form ke email
       function sendContactForm(e) {
          e.preventDefault();
          var form = document.getElementById('contactForm');
@@ -853,13 +941,9 @@
             "Telepon: " + telepon + "%0A" +
             "Pesan: " + encodeURIComponent(pesan);
 
-         // Kirim ke WhatsApp
-         var waUrl = "https://wa.me/6281220200690?text=" + msg;
-         window.open(waUrl, '_blank');
-
          // Kirim ke email (mailto, user harus klik kirim di aplikasi email)
          var mailto = "mailto:gfgondola86@gmail.com"
-            + "?subject=Pesan dari Website Gondola"
+            + "?subject= "
             + "&body=" + "Nama: " + nama + "%0AEmail: " + email + "%0ATelepon: " + telepon + "%0APesan: " + pesan;
          window.open(mailto, '_blank');
 
