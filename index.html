@@ -149,7 +149,7 @@
       <div class="row">
 
          <div class="video" style="position:relative;">
-            <video id="about-video" src="images/videogf.mp4" loop autoplay style="width:100%;" playsinline></video>
+            <video id="videogf" src="images/videogf.mp4" loop autoplay style="width:100%;" playsinline></video>
             <div class="video-controls" style="position:absolute;bottom:10px;left:10px;z-index:2;display:flex;gap:10px;">
                <button id="video-playpause" title="Jeda/Mainkan" style="padding:6px 12px;font-size:1.1rem;">⏸️</button>
                <button id="video-fullscreen" title="Perbesar" style="padding:6px 12px;font-size:1.1rem;">⛶</button>
@@ -714,57 +714,45 @@
       });
 
       // Video controls for about section
-      const video = document.getElementById('about-video');
+      const video = document.getElementById('videogf');
       const playPauseBtn = document.getElementById('video-playpause');
       const fullscreenBtn = document.getElementById('video-fullscreen');
 
       // --- AUTOPLAY FIX FOR MOBILE/WEB ---
-      // Try to autoplay with muted if autoplay fails
       (function() {
          function updatePlayPauseIcon() {
             playPauseBtn.textContent = video.paused ? '▶️' : '⏸️';
          }
          function tryAutoplay() {
-            // If already playing, do nothing
-            if (!video.paused) {
-               updatePlayPauseIcon();
-               return;
-            }
-            // Try play
+            // Set volume sebelum mencoba play
+            video.volume = 0.5;
+            // Paksa play (autoplay)
             const playPromise = video.play();
             if (playPromise !== undefined) {
                playPromise.then(() => {
-                  // Jika video dimulai dalam keadaan mute, coba unmute jika sudah dapat diputar
-                  if (video.muted) {
-                     // Coba unmute setelah autoplay berhasil
-                     setTimeout(() => {
-                        video.muted = false;
-                     }, 500);
-                  }
                   updatePlayPauseIcon();
-               }).catch(() => {
-                  // If failed, mute and try again
-                  video.muted = true;
-                  video.play().then(() => {
-                     updatePlayPauseIcon();
-                  }).catch(()=>{});
+               }).catch(error => {
+                  // Jika gagal autoplay karena kebijakan browser, tunggu interaksi user
+                  playPauseBtn.textContent = '▶️ (Klik untuk memulai)';
                });
             }
          }
-         // Try on DOMContentLoaded and user interaction
+         // Jalankan autoplay segera saat halaman dimuat
          document.addEventListener('DOMContentLoaded', tryAutoplay);
          window.addEventListener('load', tryAutoplay);
-         // Also try on first user gesture
-         ['touchstart','click'].forEach(evt =>
-            window.addEventListener(evt, tryAutoplay, {once:true})
-         );
+         // Jika tetap gagal, coba lagi saat ada interaksi user pertama
+         ['click', 'touchstart'].forEach(evt => {
+            document.addEventListener(evt, tryAutoplay, { once: true });
+         });
       })();
       // --- END AUTOPLAY FIX ---
 
       // Set initial icon
       playPauseBtn.textContent = video.paused ? '▶️' : '⏸️';
 
+      // Aktifkan audio saat user berinteraksi dengan video controls
       playPauseBtn.onclick = function() {
+         video.volume = 0.5; // set volume saat user klik play
          if (video.paused) {
             video.play();
             playPauseBtn.textContent = '⏸️';
@@ -775,6 +763,7 @@
       };
 
       fullscreenBtn.onclick = function() {
+         video.volume = 0.5; // set volume saat user fullscreen
          if (video.requestFullscreen) {
             video.requestFullscreen();
          } else if (video.webkitRequestFullscreen) {
