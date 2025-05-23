@@ -32,7 +32,7 @@
          <a href="#about">tentang</a>
          <a href="#services">layanan</a>
          <a href="#projects">proyek</a>
-         <a href="#pricing">harga</a>
+         <a href="#pricing">galeri</a>
          <a href="#contact">kontak</a>
          <a href="#blogs">blog</a>
       </nav>
@@ -700,6 +700,42 @@
       const video = document.getElementById('about-video');
       const playPauseBtn = document.getElementById('video-playpause');
       const fullscreenBtn = document.getElementById('video-fullscreen');
+
+      // --- AUTOPLAY FIX FOR MOBILE/WEB ---
+      // Try to autoplay with muted if autoplay fails
+      (function() {
+         function updatePlayPauseIcon() {
+            playPauseBtn.textContent = video.paused ? '▶️' : '⏸️';
+         }
+         function tryAutoplay() {
+            // If already playing, do nothing
+            if (!video.paused) {
+               updatePlayPauseIcon();
+               return;
+            }
+            // Try play
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+               playPromise.then(() => {
+                  updatePlayPauseIcon();
+               }).catch(() => {
+                  // If failed, mute and try again
+                  video.muted = true;
+                  video.play().then(() => {
+                     updatePlayPauseIcon();
+                  }).catch(()=>{});
+               });
+            }
+         }
+         // Try on DOMContentLoaded and user interaction
+         document.addEventListener('DOMContentLoaded', tryAutoplay);
+         window.addEventListener('load', tryAutoplay);
+         // Also try on first user gesture
+         ['touchstart','click'].forEach(evt =>
+            window.addEventListener(evt, tryAutoplay, {once:true})
+         );
+      })();
+      // --- END AUTOPLAY FIX ---
 
       // Set initial icon
       playPauseBtn.textContent = video.paused ? '▶️' : '⏸️';
