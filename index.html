@@ -16,7 +16,62 @@
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+   <style>
+   /* Responsive header logo & icons */
+   @media (max-width: 768px) {
+     .header .logo {
+       flex-direction: column;
+       gap: 0 !important;
+       align-items: flex-start;
+     }
+     
+     .header .logo span {
+       display: block;
+       line-height: 1.2;
+       margin-top: -2px;
+     }
+     
+     .header .logo img {
+       height: 36px;
+       width: 38px;
+       margin-bottom: 2px;
+     }
+     
+     .header .icons {
+       display: flex;
+       flex-direction: column;
+       gap: 8px;
+     }
+     
+     .header .icons > div {
+       margin: 0;
+       font-size: 1.2rem;
+     }
+     
+     .navbar {
+       width: 100%;
+       order: 3;
+       margin-top: 10px;
+     }
+   }
 
+   @media (max-width: 450px) {
+     .header {
+       flex-wrap: wrap;
+       padding: 1rem 2rem;
+     }
+     
+     .header .logo {
+       flex: 1 1 70%;
+       white-space: normal;
+     }
+     
+     .header .icons {
+       flex: 1 1 30%;
+       align-items: flex-end;
+     }
+   }
+   </style>
 </head>
 
 <body>
@@ -24,48 +79,33 @@
    <!-- header section starts  -->
 
    <header class="header">
+  <a href="#" class="logo" style="display:flex;align-items:center;gap:10px;">
+    <img src="images/Logo.png" alt="Logo PT" style="height:42px;width:44px;display:inline-block;">
+    PT. GONDOLA FIRDAUS<br><span>PRATAMA JAYA</span>
+  </a>
 
-      <a href="#" class="logo" style="display:flex;align-items:center;gap:10px;">
-         <img src="images/Logo.png" alt="Logo PT" style="height:44px;width:auto;display:inline-block;">
-         PT.GONDOLA FIRDAUS<span>PRATAMA JAYA</span>
-      </a>
+  <nav class="navbar">
+    <a href="#home">beranda</a>
+    <a href="#about">tentang</a>
+    <a href="#services">layanan</a>
+    <a href="#projects">proyek</a>
+    <a href="#pricing">galeri</a>
+    <a href="#contact">kontak</a>
+    <a href="#blogs">blog</a>
+  </nav>
 
-      <nav class="navbar">
-         <a href="#home">beranda</a>
-         <a href="#about">tentang</a>
-         <a href="#services">layanan</a>
-         <a href="#projects">proyek</a>
-         <a href="#pricing">galeri</a>
-         <a href="#contact">kontak</a>
-         <a href="#blogs">blog</a>
-      </nav>
+  <div class="icons">
+    <div id="menu-btn" class="fas fa-bars"></div>
+    <div id="info-btn" class="fas fa-headset" title="Klik untuk Melihat Info Kontak"></div>
+    <div id="search-btn" class="fas fa-envelope" title="klik untuk Menghubungi via email"></div>
+    <div id="login-btn" class="fas fa-phone" title="Klik untuk Menelpon"></div>
+  </div>
 
-      <div class="icons">
-         <div id="menu-btn" class="fas fa-bars"></div>
-         <div id="info-btn" class="fas fa-info-circle" title="Klik untuk Melihat Info Kontak"></div>
-         <div id="search-btn" class="fas fa-search" title="Klik untuk Melihat Kotak Pencarian"></div>
-         <div id="login-btn" class="fas fa-user" title="Klik untuk Melihat Form Login"></div>
-      </div>
-
-      <form action="" class="search-form">
-         <input type="search" name="" placeholder="cari di sini..." id="search-box">
-         <label for="search-box" class="fas fa-instagram"></label>
-      </form>
-
-      <form action="" class="login-form">
-         <h3>form login</h3>
-         <input type="email" placeholder="masukkan email anda" class="box">
-         <input type="password" placeholder="masukkan kata sandi anda" class="box">
-         <div class="flex">
-            <input type="checkbox" name="" id="remember-me">
-            <label for="remember-me">ingat saya</label>
-            <a href="#">lupa kata sandi?</a>
-         </div>
-         <input type="submit" value="login sekarang" class="btn">
-         <p>belum punya akun? <a href="#">buat sekarang!</a></p>
-      </form>
-
-   </header>
+  <form action="" class="search-form">
+    <input type="search" name="" placeholder="cari di sini..." id="search-box">
+    <label for="search-box" class="fas fa-instagram"></label>
+  </form>
+</header>
 
    <div class="contact-info">
 
@@ -483,12 +523,12 @@
             src="https://www.google.com/maps?q=Kantor+GF+2,+JPCG%2BX7R,+Pondok+Petir,+Bojongsari,+Depok+City,+West+Java+16517&output=embed"
             allowfullscreen="" loading="lazy"></iframe>
 
-         <form action="">
+         <form id="contactForm" onsubmit="return sendContactForm(event)">
             <h3>hubungi kami</h3>
-            <input type="text" placeholder="nama" class="box">
-            <input type="email" placeholder="email" class="box">
-            <input type="number" placeholder="telepon" class="box">
-            <textarea name="" placeholder="pesan" class="box" id="" cols="30" rows="10"></textarea>
+            <input type="text" placeholder="nama" class="box" name="nama" required>
+            <input type="email" placeholder="email" class="box" name="email" required>
+            <input type="number" placeholder="telepon" class="box" name="telepon" required>
+            <textarea name="pesan" placeholder="pesan" class="box" id="" cols="30" rows="10" required></textarea>
             <input type="submit" value="kirim pesan" class="btn">
          </form>
 
@@ -558,6 +598,21 @@
             <div class="swiper-slide slide"><img src="logoclient/bks.jpg" alt="Client 4" loading="lazy"></div>
             <div class="swiper-slide slide"><img src="logoclient/inalum.png" alt="Client 5" loading="lazy"></div>
             <div class="swiper-slide slide"><img src="logoclient/keisha.png" alt="Client 6" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/kempinski.jpg" alt="Client 7" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/montsera.png" alt="Client 8" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/mulia.jpg" alt="Client 9" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/nusaraya.jpg" alt="Client 10" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/olive.jpg" alt="Client 11" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/pakkodian.png" alt="Client 12" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/pbs.jpg" alt="Client 13" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/polri.png" alt="Client 14" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/pp.png" alt="Client 15" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/provices.png" alt="Client 16" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/trakindo.jpg" alt="Client 17" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/ugm.jpg" alt="Client 18" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/uresidences.jpg" alt="Client 19" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/wika.png" alt="Client 20" loading="lazy"></div>
+            <div class="swiper-slide slide"><img src="logoclient/xlsmart.png" alt="Client 21" loading="lazy"></div>
          </div>
       </div>
       <style>
@@ -619,7 +674,7 @@
          <div class="copyright">
             Hak Cipta &copy; 2025 PT. Gondola Firdaus Pratama Jaya. Seluruh hak cipta dilindungi undang-undang.
          </div>
-         <div class="credit">
+         <div class="credit" style="font-size:1.1rem; font-weight:500;">
             Website by
             <a href="https://www.facebook.com/lieinsid" target="_blank">MCA</a>
          </div>
@@ -697,8 +752,8 @@
 
       // Smooth, continuous, auto-scrolling logo slider
       new Swiper('.logo-slider', {
-         slidesPerView: 4,
-         spaceBetween: 30,
+         slidesPerView: 6,
+         spaceBetween: 15,
          loop: true,
          speed: 3500,
          autoplay: {
@@ -780,6 +835,48 @@
       video.loop = false;
       video.onended = function() {
          playPauseBtn.textContent = '▶️';
+      };
+
+      // Kirim form ke email dan WhatsApp
+      function sendContactForm(e) {
+         e.preventDefault();
+         var form = document.getElementById('contactForm');
+         var nama = form.nama.value.trim();
+         var email = form.email.value.trim();
+         var telepon = form.telepon.value.trim();
+         var pesan = form.pesan.value.trim();
+
+         // Format pesan
+         var msg =
+            "Nama: " + nama + "%0A" +
+            "Email: " + email + "%0A" +
+            "Telepon: " + telepon + "%0A" +
+            "Pesan: " + encodeURIComponent(pesan);
+
+         // Kirim ke WhatsApp
+         var waUrl = "https://wa.me/6281220200690?text=" + msg;
+         window.open(waUrl, '_blank');
+
+         // Kirim ke email (mailto, user harus klik kirim di aplikasi email)
+         var mailto = "mailto:gfgondola86@gmail.com"
+            + "?subject=Pesan dari Website Gondola"
+            + "&body=" + "Nama: " + nama + "%0AEmail: " + email + "%0ATelepon: " + telepon + "%0APesan: " + pesan;
+         window.open(mailto, '_blank');
+
+         // Optional: reset form
+         form.reset();
+
+         return false;
+      }
+
+      // Buka Gmail saat ikon envelope diklik
+      document.getElementById('search-btn').onclick = function() {
+         window.open('https://mail.google.com/mail/?view=cm&fs=1&to=gfgondola86@gmail.com', '_blank');
+      };
+
+      // Buka telepon saat ikon phone diklik
+      document.getElementById('login-btn').onclick = function() {
+         window.open('tel:081220200690', '_self');
       };
 
    </script>
