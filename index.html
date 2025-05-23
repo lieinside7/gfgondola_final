@@ -149,7 +149,7 @@
       <div class="row">
 
          <div class="video" style="position:relative;">
-            <video id="about-video" src="images/videogf.mp4" loop autoplay style="width:100%;"></video>
+            <video id="about-video" src="images/videogf.mp4" loop autoplay style="width:100%;" playsinline></video>
             <div class="video-controls" style="position:absolute;bottom:10px;left:10px;z-index:2;display:flex;gap:10px;">
                <button id="video-playpause" title="Jeda/Mainkan" style="padding:6px 12px;font-size:1.1rem;">⏸️</button>
                <button id="video-fullscreen" title="Perbesar" style="padding:6px 12px;font-size:1.1rem;">⛶</button>
@@ -612,17 +612,34 @@
    <section class="footer">
       <div class="footer-info">
          <div class="company-name">PT. Gondola Firdaus Pratama Jaya</div>
-         <div class="tagline">Spesialis Sistem Gondola Profesional untuk Proyek Gedung Tinggi</div>
          <div class="address">Jl. Raya Pondok Petir No.118 RT 002/019 Bojongsari - Depok</div>
          <div class="copyright">
             Hak Cipta &copy; 2025 PT. Gondola Firdaus Pratama Jaya. Seluruh hak cipta dilindungi undang-undang.
          </div>
          <div class="credit">
-            dibuat oleh
+            Website by
             <a href="https://www.facebook.com/lieinsid" target="_blank">MCA</a>
          </div>
       </div>
    </section>
+   <style>
+      /* Perbesar tulisan footer utama */
+      .footer-info .company-name {
+         font-size: 2.1rem;
+         font-weight: 700;
+         margin-bottom: 0.5rem;
+      }
+      .footer-info .address {
+         font-size: 1.4rem;
+         font-weight: 500;
+         margin-bottom: 0.5rem;
+      }
+      .footer-info .copyright {
+         font-size: 1.3rem;
+         font-weight: 500;
+         margin-bottom: 0.5rem;
+      }
+   </style>
 
    <!-- footer section ends -->
 
@@ -717,6 +734,13 @@
             const playPromise = video.play();
             if (playPromise !== undefined) {
                playPromise.then(() => {
+                  // Jika video dimulai dalam keadaan mute, coba unmute jika sudah dapat diputar
+                  if (video.muted) {
+                     // Coba unmute setelah autoplay berhasil
+                     setTimeout(() => {
+                        video.muted = false;
+                     }, 500);
+                  }
                   updatePlayPauseIcon();
                }).catch(() => {
                   // If failed, mute and try again
