@@ -24,55 +24,203 @@
        gap: 0 !important;
        align-items: flex-start;
      }
-     
      .header .logo span {
        display: block;
        line-height: 1.2;
        margin-top: -2px;
      }
-     
      .header .logo img {
        height: 36px;
        width: 38px;
        margin-bottom: 2px;
      }
-     
      .header .icons {
        display: flex;
        flex-direction: column;
        gap: 8px;
      }
-     
      .header .icons > div {
        margin: 0;
        font-size: 1.2rem;
      }
-     
      .navbar {
        width: 100%;
        order: 3;
        margin-top: 10px;
      }
    }
-
    @media (max-width: 450px) {
      .header {
        flex-wrap: wrap;
        padding: 1rem 2rem;
      }
-     
      .header .logo {
        flex: 1 1 70%;
        white-space: normal;
      }
-     
      .header .icons {
        flex: 1 1 30%;
        align-items: flex-end;
      }
    }
-   </style>
-   <style>
+
+   /* --- Tambahan: Global Soft Layout & Responsiveness --- */
+   html {
+     scroll-behavior: smooth;
+   }
+   body {
+     font-family: 'Poppins', Arial, Helvetica, sans-serif;
+     background: #f7fafd;
+     color: #222;
+     margin: 0;
+     padding: 0;
+     font-size: 1.08rem;
+     line-height: 1.7;
+     letter-spacing: 0.01em;
+     transition: background 0.2s;
+   }
+   section, .box-container, .content, .row {
+     border-radius: 1.1rem;
+     box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+     background: #fff;
+     margin-bottom: 2.2rem;
+     padding: 2.2rem 1.5rem;
+     transition: box-shadow 0.2s, background 0.2s;
+   }
+   .heading {
+     font-size: 2.1rem;
+     font-weight: 700;
+     color: #005a8d;
+     margin-bottom: 1.5rem;
+     letter-spacing: 0.02em;
+     text-align: center;
+   }
+   .btn {
+     background: linear-gradient(90deg, #25d366 0%, #128c7e 100%);
+     color: #fff;
+     border: none;
+     border-radius: 2rem;
+     padding: 0.7rem 2.2rem;
+     font-size: 1.1rem;
+     font-weight: 600;
+     box-shadow: 0 2px 8px #25d36633;
+     cursor: pointer;
+     transition: background 0.18s, box-shadow 0.18s, transform 0.13s;
+     margin-top: 0.7rem;
+     letter-spacing: 0.02em;
+   }
+   .btn:hover {
+     background: linear-gradient(90deg, #128c7e 0%, #25d366 100%);
+     box-shadow: 0 4px 16px #128c7e33;
+     transform: translateY(-2px) scale(1.04);
+   }
+   .box-container {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 2rem;
+     justify-content: center;
+     background: transparent;
+     box-shadow: none;
+     padding: 0;
+   }
+   .box-container .box {
+     background: #fff;
+     border-radius: 1.1rem;
+     box-shadow: 0 2px 12px #005a8d11;
+     padding: 1.5rem 1.2rem;
+     flex: 1 1 220px;
+     min-width: 220px;
+     max-width: 340px;
+     margin: 0.5rem 0.2rem;
+     transition: box-shadow 0.18s, transform 0.18s;
+   }
+   .box-container .box:hover {
+     box-shadow: 0 6px 24px #25d36622;
+     transform: translateY(-4px) scale(1.03);
+   }
+   .row {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 2.2rem;
+     align-items: center;
+     background: transparent;
+     box-shadow: none;
+     padding: 0;
+   }
+   .row > * {
+     flex: 1 1 320px;
+     min-width: 220px;
+   }
+   .content {
+     background: transparent;
+     box-shadow: none;
+     padding: 0;
+   }
+   .content h3 {
+     font-size: 1.4rem;
+     color: #128c7e;
+     margin-bottom: 0.8rem;
+     font-weight: 700;
+   }
+   .content p {
+     color: #444;
+     font-size: 1.08rem;
+     margin-bottom: 0.7rem;
+   }
+   .swiper-slide .content {
+     background: rgba(255,255,255,0.92);
+     border-radius: 1.1rem;
+     padding: 1.2rem 1.5rem;
+     box-shadow: 0 2px 12px #25d36611;
+     margin: 2.2rem 0;
+   }
+   .swiper-slide .content h3 {
+     color: #005a8d;
+   }
+   .swiper-slide .content p {
+     color: #333;
+   }
+   /* --- End Soft Layout --- */
+
+   /* --- Responsive --- */
+   @media (max-width: 900px) {
+     .box-container {
+       gap: 1.2rem;
+     }
+     .row {
+       gap: 1.2rem;
+     }
+     section, .box-container, .content, .row {
+       padding: 1.2rem 0.7rem;
+     }
+     .heading {
+       font-size: 1.5rem;
+     }
+   }
+   @media (max-width: 600px) {
+     .box-container {
+       flex-direction: column;
+       gap: 0.7rem;
+     }
+     .row {
+       flex-direction: column;
+       gap: 0.7rem;
+     }
+     section, .box-container, .content, .row {
+       padding: 0.7rem 0.2rem;
+       border-radius: 0.7rem;
+     }
+     .box-container .box {
+       min-width: 0;
+       max-width: 100%;
+       padding: 1rem 0.7rem;
+     }
+     .heading {
+       font-size: 1.1rem;
+     }
+   }
+   /* --- End Responsive --- */
+
    /* Sembunyikan ikon tertentu di mobile */
    @media (max-width: 768px) {
        #info-btn,  /* headset */
@@ -755,7 +903,6 @@
       </div>
    </section>
    <style>
-      /* Perbesar tulisan footer utama */
       .footer-info .company-name {
          font-size: 2.1rem;
          font-weight: 700;
@@ -782,34 +929,89 @@
    <style>
       .wa-float {
          position: fixed;
-         width: 60px;
-         height: 60px;
-         bottom: 24px;
-         right: 24px;
-         background-color: #25d366;
+         width: 64px;
+         height: 64px;
+         bottom: 28px;
+         right: 28px;
+         background: linear-gradient(135deg, #25d366 60%, #128c7e 100%);
          color: #fff;
          border-radius: 50%;
          text-align: center;
-         font-size: 2.5rem;
-         box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+         font-size: 2.7rem;
+         box-shadow: 0 8px 32px rgba(0,0,0,0.22), 0 1.5px 6px #25d36655;
          z-index: 999;
          display: flex;
          align-items: center;
          justify-content: center;
-         transition: background 0.2s, box-shadow 0.2s;
-         animation: wa-bounce 1.6s infinite;
+         transition: background 0.22s, box-shadow 0.22s, transform 0.18s;
+         animation: wa-float-in 0.7s cubic-bezier(.4,0,.2,1), wa-bounce 1.7s infinite;
+         border: 3px solid #fff;
+         cursor: pointer;
       }
       .wa-float:hover {
-         background: #20ba5a;
-         box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+         background: linear-gradient(135deg, #128c7e 60%, #25d366 100%);
+         box-shadow: 0 12px 36px rgba(0,0,0,0.28), 0 2px 8px #128c7e55;
          color: #fff;
          text-decoration: none;
          animation: none;
+         transform: scale(1.08) rotate(-6deg);
+         filter: drop-shadow(0 0 12px #25d36688);
       }
       @keyframes wa-bounce {
          0%, 100% { transform: translateY(0);}
-         10%, 30%, 50%, 70%, 90% { transform: translateY(-3px);}
-         20%, 40%, 60%, 80% { transform: translateY(0);}
+         10%, 30%, 50%, 70%, 90% { transform: translateY(-5px);}
+         20%, 40%, 60%, 80% { transform: translateY(2px);}
+      }
+      @keyframes wa-float-in {
+         0% {
+            opacity: 0;
+            transform: scale(0.7) translateY(40px);
+         }
+         80% {
+            opacity: 1;
+            transform: scale(1.05) translateY(-6px);
+         }
+         100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+         }
+      }
+      .wa-float::after {
+         content: "Chat WhatsApp";
+         position: absolute;
+         right: 80px;
+         bottom: 18px;
+         background: #fff;
+         color: #128c7e;
+         font-size: 1.08rem;
+         font-weight: 600;
+         padding: 7px 18px;
+         border-radius: 22px;
+         box-shadow: 0 2px 12px #25d36633;
+         opacity: 0;
+         pointer-events: none;
+         transition: opacity 0.22s, right 0.22s;
+         white-space: nowrap;
+         letter-spacing: 0.5px;
+      }
+      .wa-float:hover::after {
+         opacity: 1;
+         right: 78px;
+      }
+      @media (max-width: 600px) {
+         .wa-float {
+            width: 52px;
+            height: 52px;
+            font-size: 2rem;
+            bottom: 16px;
+            right: 16px;
+         }
+         .wa-float::after {
+            font-size: 0.98rem;
+            padding: 5px 12px;
+            right: 60px;
+            bottom: 10px;
+         }
       }
    </style>
 
